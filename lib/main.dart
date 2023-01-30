@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:leafwatch/settings.dart';
+import 'package:leafwatch/shared.dart';
 
 void main() {
   runApp(const MyApp());
@@ -9,13 +11,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Leaf Watch',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
       darkTheme:
           ThemeData(primarySwatch: Colors.blue, textTheme: const TextTheme()),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const MyHomePage(title: 'My Leaf Watch'),
       color: Colors.blue,
       themeMode: ThemeMode.light, // Dark mode soon.
     );
@@ -32,62 +34,22 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter += 1;
-      if (_counter > 100) {
-        _counter = 0;
-      }
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: Center(
-          child: MyStatelessWidget(
-        key: Key("test"),
-      )),
+      body: const Center(child: Text("Home page again.")),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          // Navigator.push(context, MaterialPageRoute(builder: (context) {
-          //   return const TestPage(title: "Test");
-          // }));
+          Navigator.push(context, MaterialPageRoute(builder: (context) {
+            return const MySettingsPage(title: "Settings");
+          }));
         },
         tooltip: 'Settings',
         child: const Icon(Icons.settings),
       ),
-    );
-  }
-}
-
-class MyStatelessWidget extends StatelessWidget {
-  const MyStatelessWidget({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    final PageController controller = PageController();
-    return PageView(
-      /// [PageView.scrollDirection] defaults to [Axis.horizontal].
-      /// Use [Axis.vertical] to scroll vertically.
-      scrollDirection: Axis.vertical,
-      controller: controller,
-      children: const <Widget>[
-        Center(
-          child: Text('First Page'),
-        ),
-        Center(
-          child: Text('Second Page'),
-        ),
-        Center(
-          child: Text('Third Page'),
-        ),
-      ],
     );
   }
 }
