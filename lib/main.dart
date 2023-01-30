@@ -40,7 +40,13 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: const Center(child: Text("Home page again.")),
+      body: FutureBuilder<Shared>(
+          future: Shared.get(),
+          builder: (BuildContext context, AsyncSnapshot<Shared> snapshot) {
+            return Center(
+              child: Text("Home " + snapshot.hasData.toString()),
+            );
+          }),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.push(context, MaterialPageRoute(builder: (context) {
