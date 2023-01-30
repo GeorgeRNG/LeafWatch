@@ -1,7 +1,6 @@
 import 'dart:developer';
 
-import 'package:flutter/rendering.dart';
-import 'package:leafwatch/main.dart';
+import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Shared {
@@ -29,4 +28,10 @@ class Shared {
   set scrollDirection(Axis direction) {
     preferences.setBool("horizontal", direction == Axis.horizontal);
   }
+}
+
+class ChargingIcons {
+  static const charging = Icons.bolt;
+  static const pluggedin = Icons.electrical_services;
+  static const notpluggedin = Icons.power_off;
 }
