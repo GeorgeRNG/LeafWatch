@@ -17,17 +17,6 @@ class Shared {
   }
 
   Shared(this.preferences);
-
-  Axis get scrollDirection {
-    var perf = preferences.getBool("horizontal");
-    perf ??= false;
-    log(perf.toString());
-    return perf ? Axis.horizontal : Axis.vertical;
-  }
-
-  set scrollDirection(Axis direction) {
-    preferences.setBool("horizontal", direction == Axis.horizontal);
-  }
 }
 
 class ChargingIcons {

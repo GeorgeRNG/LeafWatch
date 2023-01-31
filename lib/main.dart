@@ -1,8 +1,8 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:leafwatch/settings.dart';
 import 'package:leafwatch/shared.dart';
+import 'package:leafwatch/vehicle.dart';
 
 void main() {
   runApp(const MyApp());
@@ -36,32 +36,19 @@ class MyHomePage extends StatefulWidget {
 }
 
 class MyHomePageState extends State<MyHomePage> {
-  static Axis direction = Axis.vertical;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: FutureBuilder<Shared>(
-          future: Shared.get(),
-          builder: (BuildContext context, AsyncSnapshot<Shared> snapshot) {
-            if (snapshot.hasData) {
-              direction = snapshot.data!.scrollDirection;
-            }
-            log(direction.toString());
-            return PageView(
-              scrollDirection: direction,
-              children: [
-                const Center(child: Text("Hello")),
-                const Center(child: Text("Hello")),
-                const Center(child: Text("Hello")),
-                const Center(child: Text("Hello")),
-                MyPreferencesPage(title: "test")
-              ],
-            );
-          }),
+      body: (PageView(
+        scrollDirection: Axis.vertical,
+        children: [
+          VehicleWidget(vehicle: testVehicle),
+          VehicleWidget(vehicle: testVehicle),
+        ],
+      )),
     );
   }
 }
