@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:leafwatch/settings.dart';
 import 'package:leafwatch/shared.dart';
@@ -30,10 +32,12 @@ class MyHomePage extends StatefulWidget {
   final String title;
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<MyHomePage> createState() => MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class MyHomePageState extends State<MyHomePage> {
+  static Axis direction = Axis.vertical;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,19 +47,21 @@ class _MyHomePageState extends State<MyHomePage> {
       body: FutureBuilder<Shared>(
           future: Shared.get(),
           builder: (BuildContext context, AsyncSnapshot<Shared> snapshot) {
-            return Center(
-              child: Text("Home " + snapshot.hasData.toString()),
+            if (snapshot.hasData) {
+              direction = snapshot.data!.scrollDirection;
+            }
+            log(direction.toString());
+            return PageView(
+              scrollDirection: direction,
+              children: [
+                const Center(child: Text("Hello")),
+                const Center(child: Text("Hello")),
+                const Center(child: Text("Hello")),
+                const Center(child: Text("Hello")),
+                MyPreferencesPage(title: "test")
+              ],
             );
           }),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.push(context, MaterialPageRoute(builder: (context) {
-            return const MySettingsPage(title: "Settings");
-          }));
-        },
-        tooltip: 'Settings',
-        child: const Icon(Icons.settings),
-      ),
     );
   }
 }
