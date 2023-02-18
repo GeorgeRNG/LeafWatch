@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:leafwatch/remote.dart';
 
 class Vehicle {
   Vehicle({required this.name, required this.username, required this.password});
@@ -46,31 +47,35 @@ class VehicleWidget extends StatefulWidget {
 class _VehicleState extends State<VehicleWidget> {
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Column(
-        children: [
-          Container(
-            padding: const EdgeInsets.all(32),
-            child: Text(
-              widget.vehicle.name,
-              style: const TextStyle(fontSize: 30),
-            ),
-          ),
-          Column(
+    return TextButton(
+        onPressed: () {
+          // print(Leaf.login());
+        },
+        child: Center(
+          child: Column(
             children: [
-              const Padding(
-                padding: EdgeInsets.all(4),
-                child: Text("Charge"),
+              Container(
+                padding: const EdgeInsets.all(32),
+                child: Text(
+                  widget.vehicle.name,
+                  style: const TextStyle(fontSize: 30),
+                ),
               ),
-              Padding(
-                  padding: EdgeInsets.all(20),
-                  child: LinearProgressIndicator(
-                    value: (() => 0.5)(),
-                  ))
+              Column(
+                children: [
+                  const Padding(
+                    padding: EdgeInsets.all(4),
+                    child: Text("Charge"),
+                  ),
+                  Padding(
+                      padding: const EdgeInsets.all(20),
+                      child: LinearProgressIndicator(
+                        value: (() => 0.5)(),
+                      ))
+                ],
+              )
             ],
-          )
-        ],
-      ),
-    );
+          ),
+        ));
   }
 }

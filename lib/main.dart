@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:leafwatch/shared.dart';
 import 'package:leafwatch/vehicle.dart';
+import 'package:leafwatch/remote.dart';
 
 void main() {
   runApp(const MyApp());
@@ -38,6 +39,7 @@ class MyHomePage extends StatefulWidget {
 class MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
+    // Leaf.login();
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),

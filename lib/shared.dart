@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -21,6 +19,6 @@ class Shared {
 
 class ChargingIcons {
   static const charging = Icons.bolt;
-  static const pluggedin = Icons.electrical_services;
-  static const notpluggedin = Icons.power_off;
+  static const pluggedIn = Icons.electrical_services;
+  static const notPluggedIn = Icons.power_off;
 }
