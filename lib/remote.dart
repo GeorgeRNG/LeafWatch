@@ -9,8 +9,8 @@ class Leaf {
     Leaf leaf = Leaf._();
     await leaf.session.login(username: username, password: password);
     if (leaf.session.loggedIn = true) {
-      print("success!");
+      return leaf;
     }
-    return leaf;
+    throw 'Login Error';
   }
 }
