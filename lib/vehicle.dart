@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:leafwatch/remote.dart';
+import 'package:leafwatch/secrets.dart';
 
 class Vehicle {
   Vehicle({required this.name, required this.username, required this.password});
@@ -49,7 +50,7 @@ class _VehicleState extends State<VehicleWidget> {
   Widget build(BuildContext context) {
     return TextButton(
         onPressed: () {
-          // print(Leaf.login());
+          print(Leaf.login(username, password));
         },
         child: Center(
           child: Column(
