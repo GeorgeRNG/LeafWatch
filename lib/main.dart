@@ -1,6 +1,8 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:leafwatch/login.dart';
 import 'package:leafwatch/shared.dart';
 import 'package:leafwatch/vehicle.dart';
 import 'package:leafwatch/remote.dart';
@@ -32,6 +34,11 @@ class MyHomePage extends StatefulWidget {
 
   final String title;
 
+  // test() {
+  //   var test = PageView();
+  //   test.physics = ScrollPhysics().
+  // }
+
   @override
   State<MyHomePage> createState() => MyHomePageState();
 }
@@ -46,9 +53,8 @@ class MyHomePageState extends State<MyHomePage> {
       ),
       body: (PageView(
         scrollDirection: Axis.vertical,
-        children: [
-          VehicleWidget(vehicle: testVehicle),
-          VehicleWidget(vehicle: testVehicle),
+        children: const [
+          LoginWidget(),
         ],
       )),
     );
