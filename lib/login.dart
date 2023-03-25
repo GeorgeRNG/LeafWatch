@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:leafwatch/accounts.dart';
-import 'package:leafwatch/main.dart';
 
 class LoginWidget extends StatefulWidget {
   const LoginWidget({super.key});

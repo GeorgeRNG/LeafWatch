@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:leafwatch/remote.dart';
 
 class Vehicle {
   Vehicle({required this.name, required this.username, required this.password});

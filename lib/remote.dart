@@ -1,6 +1,7 @@
 import 'package:dartcarwings/dartcarwings.dart';
+import 'package:leafwatch/accounts.dart';
 
-class Leaf {
+class Leaf extends Account {
   CarwingsSession session = CarwingsSession(debug: true);
 
   Leaf._();
