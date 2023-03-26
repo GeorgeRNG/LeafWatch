@@ -21,7 +21,7 @@ class Accounts {
     if (isReady) {
       if (type == AccountType.leaf) {
         var id = uuid.v4();
-        Account account = await Leaf.login(id, username, password);
+        Account account = await Leaf.createWithLogin(id, username, password);
         if (accounts[type] == null) accounts[type] = {};
         accounts[type]?.addAll({id: account});
         saveAccounts();
@@ -77,6 +77,10 @@ class Account {
   static Account fromJson(dynamic data) {
     return Account(
         id: data['id'], username: data['username'], password: data['password']);
+  }
+
+  Future<double> getCharge() async {
+    throw 'Unimplemented';
   }
 
   Map toJson() => {"id": id, "username": username, "password": password};

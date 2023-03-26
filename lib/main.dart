@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:leafwatch/accounts.dart';
 import 'package:leafwatch/login.dart';
+import 'package:leafwatch/vehicle.dart';
 
 void main() {
   runApp(const MyApp());
@@ -38,19 +40,38 @@ class MyHomePage extends StatefulWidget {
 }
 
 class MyHomePageState extends State<MyHomePage> {
+  List<Widget> pages = [const LoginWidget()];
+
   @override
   Widget build(BuildContext context) {
-    // Leaf.login();
+    getDriveWay().then((value) {
+      setState(() {
+        pages = [
+          ...value,
+          const LoginWidget(),
+        ];
+      });
+    });
+
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
       ),
       body: (PageView(
         scrollDirection: Axis.vertical,
-        children: const [
-          LoginWidget(),
-        ],
+        children: pages,
       )),
     );
+  }
+
+  Future<List<Widget>> getDriveWay() async {
+    var accounts = await Accounts.instance.getAccounts();
+    List<Widget> vehicles = [];
+    accounts.forEach((type, values) {
+      values.forEach((id, account) {
+        vehicles.add(VehicleWidget(vehicle: account));
+      });
+    });
+    return vehicles;
   }
 }

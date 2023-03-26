@@ -1,26 +1,5 @@
 import 'package:flutter/material.dart';
-
-class Vehicle {
-  Vehicle({required this.name, required this.username, required this.password});
-
-  String name;
-
-  String username;
-  String password;
-
-  CarState? _cachedState;
-  Future<CarState> state() {
-    if (_cachedState == null) {
-      var get = CarState().get();
-      get.then((value) {
-        _cachedState = value;
-      });
-      return get;
-    } else {
-      return Future.value(_cachedState);
-    }
-  }
-}
+import 'package:leafwatch/accounts.dart';
 
 class CarState {
   Future<CarState> get() {
@@ -32,42 +11,53 @@ class CarState {
   }
 }
 
-final testVehicle = Vehicle(name: "placeholder", username: "", password: "");
-
 class VehicleWidget extends StatefulWidget {
   const VehicleWidget({super.key, required this.vehicle});
 
-  final Vehicle vehicle;
+  final Account vehicle;
 
   @override
   State<VehicleWidget> createState() => _VehicleState();
 }
 
 class _VehicleState extends State<VehicleWidget> {
+  double charge = -1;
+
   @override
   Widget build(BuildContext context) {
+    print("Building");
+
     return TextButton(
-        onPressed: () {},
+        onPressed: () {
+          widget.vehicle.getCharge().then((value) {
+            print(value);
+            setState(() {
+              charge = value;
+            });
+          });
+        },
         child: Center(
           child: Column(
             children: [
               Container(
                 padding: const EdgeInsets.all(32),
                 child: Text(
-                  widget.vehicle.name,
+                  widget.vehicle.username,
                   style: const TextStyle(fontSize: 30),
                 ),
               ),
               Column(
                 children: [
-                  const Padding(
-                    padding: EdgeInsets.all(4),
-                    child: Text("Charge"),
+                  Padding(
+                    padding: const EdgeInsets.all(4),
+                    child: Text("Charge: ${(charge * 100).floor()}%"),
                   ),
                   Padding(
-                      padding: const EdgeInsets.all(20),
+                      padding:
+                          const EdgeInsets.only(left: 20, right: 20, top: 10),
                       child: LinearProgressIndicator(
-                        value: (() => 0.5)(),
+                        value: charge,
+                        minHeight: 30,
                       ))
                 ],
               )

@@ -8,13 +8,31 @@ class Leaf extends Account {
 
   Leaf._({required super.id, required super.username, required super.password});
 
-  static Future<Leaf> login(String id, String username, String password) async {
-    Leaf leaf = Leaf._(id: id, username: username, password: password);
-    await leaf.session.login(username: username, password: password);
-    if (leaf.session.loggedIn = true) {
-      return leaf;
+  login() async {
+    if (!session.loggedIn) {
+      await session.login(username: username, password: password);
+      if (!session.loggedIn) {
+        throw 'Login Error';
+      }
     }
-    throw 'Login Error';
+  }
+
+  @override
+  Future<double> getCharge() async {
+    await login();
+    var battery = await session.vehicle.requestBatteryStatus();
+    if (battery?.batteryLevel != null) {
+      return (battery?.batteryLevel as double) /
+          (battery?.batteryLevelCapacity as double);
+    }
+    throw "Couldn't get charge";
+  }
+
+  static Future<Leaf> createWithLogin(
+      String id, String username, String password) async {
+    Leaf leaf = Leaf._(id: id, username: username, password: password);
+    await leaf.login();
+    return leaf;
   }
 
   static Leaf parse(String string) {
@@ -22,7 +40,9 @@ class Leaf extends Account {
   }
 
   static Leaf fromJson(dynamic data) {
-    return Leaf._(
+    Leaf leaf = Leaf._(
         id: data['id'], username: data['username'], password: data['password']);
+    leaf.login();
+    return leaf;
   }
 }
