@@ -42,8 +42,7 @@ class MyHomePage extends StatefulWidget {
 class MyHomePageState extends State<MyHomePage> {
   List<Widget> pages = [const LoginWidget()];
 
-  @override
-  Widget build(BuildContext context) {
+  update() {
     getDriveWay().then((value) {
       setState(() {
         pages = [
@@ -51,6 +50,13 @@ class MyHomePageState extends State<MyHomePage> {
           const LoginWidget(),
         ];
       });
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    getDriveWay().then((value) {
+      update();
     });
 
     return Scaffold(

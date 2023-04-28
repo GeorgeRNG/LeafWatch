@@ -6,7 +6,11 @@ import 'package:leafwatch/accounts.dart';
 class Leaf extends Account {
   CarwingsSession session = CarwingsSession(debug: true);
 
-  Leaf._({required super.id, required super.username, required super.password});
+  Leaf._(
+      {required super.id,
+      required super.username,
+      required super.password,
+      required super.lastUpdated});
 
   login() async {
     if (!session.loggedIn) {
@@ -30,7 +34,11 @@ class Leaf extends Account {
 
   static Future<Leaf> createWithLogin(
       String id, String username, String password) async {
-    Leaf leaf = Leaf._(id: id, username: username, password: password);
+    Leaf leaf = Leaf._(
+        id: id,
+        username: username,
+        password: password,
+        lastUpdated: DateTime.now());
     await leaf.login();
     return leaf;
   }
@@ -41,7 +49,10 @@ class Leaf extends Account {
 
   static Leaf fromJson(dynamic data) {
     Leaf leaf = Leaf._(
-        id: data['id'], username: data['username'], password: data['password']);
+        id: data['id'],
+        username: data['username'],
+        password: data['password'],
+        lastUpdated: data['lastUpdated']);
     leaf.login();
     return leaf;
   }
